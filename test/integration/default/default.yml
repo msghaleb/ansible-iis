@@ -1,0 +1,10 @@
+---
+
+- name         : default
+  hosts        : all
+  gather_facts : True
+  connection   : winrm
+  become       : True
+  tasks:
+
+    - debug: var="msg"
