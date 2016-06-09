@@ -1,0 +1,53 @@
+---
+
+driver:
+  name: azurerm
+
+driver_config:
+  subscription_id: 'a06a99f4-9123-4ef6-94d8-e669b8f6f61e'
+  location: 'West Europe'
+  machine_size: 'Standard_D1'
+  #username: msghaleb
+  #password: P@ssw0rd 
+
+transport:
+#  ssh_key: ~/.ssh/id_kitchen-azurermtransport:
+     name: winrm
+     winrm_transport: negotiate
+
+provisioner:
+    name                  : ansible_push
+    verbose               : "vvvv"
+    ansible_config        : "test/ansible.cfg"
+    idempotency_test      : True
+    diff                  : True
+    sudo                  : 'True'
+   # extra_vars            : { 'kitchen_connection': '<%= if ENV["TRAVIS"] then "local" else "smart" end %>', 'kitchen_hosts': '<%= if ENV["TRAVIS"] then "localhost" else "all" end %>' }
+
+platforms:
+  # - name: win-7
+  #   driver_config:
+  #    image_urn: MicrosoftWindowsServer:WindowsServer:2012-R2-Datacenter:4.0.20160518
+  #    vm_name: win-2012-r2-vm 
+  #   os_type: windows
+  #   shell_type: powershell
+
+  - name: windows-2012
+    transport:
+      name: winrm
+    driver_config:
+      image_urn: MicrosoftWindowsServer:WindowsServer:2012-R2-Datacenter:4.0.20160518
+      vm_name: win-2012-r2-vm
+      #require_chef_omnibus: false
+#- name                   : "ubuntu"
+   #driver                 :
+   # name                  : 'vagrant'
+   # box                   : "ubuntu/trusty64"
+   # customize             :
+   #      cpus             : 2
+   #      memory           : 2048
+
+suites:
+  - name                  : default
+    provisioner           : 
+        playbook          : "test/integration/default/default.yml"
