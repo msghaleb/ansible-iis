@@ -4,8 +4,7 @@
   hosts        : all
   gather_facts : True
   connection   : winrm
-  become       : True
+  #become       : True
   tasks:
 
     - debug: var="msg"
-asdsqad
