@@ -1,5 +1,3 @@
-
-
 .kitchen/
-
 default.retry
+.DS_Store
